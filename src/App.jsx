@@ -1,21 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Header from "./Components/Header/Header"
-import Footer from './Components/Footer/Footer'
-import Categories from "./Components/Categories/Categories.jsx"
-import { Provider } from "react-redux";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
+import CategoryList from './Components/Categories/Categories';
+import Products from './Components/Products/Products';
+import { Provider } from 'react-redux';
 import store from './Store/index';
 
 function App() {
-  return <>
- <Provider store={store}>  
- <Header/>
-  <Categories/>
-  <Footer/>
-  </Provider>
-  </>
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<CategoryList/>} />
+            <Route path="/products/:categoryx" element={<Products />} />
+            </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
+  );
 }
 
-export default App
+export default App;
