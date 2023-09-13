@@ -13,15 +13,19 @@ console.log(products);
 console.log(filteredProducts);
 
   return (
-    <div>
+    <div >
       <h2>{categoryx} Products</h2>
-      
+      <ul className='card-grid'>
         {filteredProducts.map((product) => (
-          <p key={product.id}><img src={product.image}/>{product.name}</p>
+          <div className='card'>
+          <img src={product.image} className='category-img'/>
+        <h1>{product.name}</h1>
+        </div>
         ))}
-      
+      </ul>
     </div>
   );
 };
 
 export default Products;
+
