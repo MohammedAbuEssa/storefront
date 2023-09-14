@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import SimpleCart from "../SimpleCart/SimpleCart";
 
 const Header = () => {
   return (
@@ -20,9 +21,7 @@ const Header = () => {
             </Button>
           </Grid>
           <Grid item xs={true}>
-            <Button href="/cart" color="inherit">
-              Cart (0)
-            </Button>
+            <SimpleCart />
           </Grid>
         </Grid>
       </Toolbar>
