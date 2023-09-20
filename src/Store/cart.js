@@ -5,9 +5,27 @@ const initialState = {
 export const ADD_TO_CART = "ADD_TO_CART";
 
 // Action creator for adding a product to the cart
-export const addToCart = (product) => ({
-  type: ADD_TO_CART,
-  payload: product,
+// export const addToCart = (product) => ({
+//   type: ADD_TO_CART,
+//   payload: product,
+// });
+
+// Action creator for adding a product to the cart
+export const addToCart = (product) => (dispatch, getState) => {
+  const { products } = getState();
+  const productToUpdate = products.find((p) => p.id === product.id);
+
+  if (productToUpdate && productToUpdate.inventoryCount > 0) {
+    dispatch({
+      type: ADD_TO_CART,
+      payload: product,
+    });
+  }
+};
+
+export const updateInventoryCount = (productId, newInventoryCount) => ({
+  type: UPDATE_INVENTORY_COUNT,
+  payload: { productId, newInventoryCount },
 });
 
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
@@ -22,7 +40,7 @@ const cartReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "ADD_TO_CART":
+    case ADD_TO_CART:
       // Check if the product is already in the cart
       const isProductInCart = state.cart.some((item) => item.id === payload.id);
       if (isProductInCart) {
@@ -48,6 +66,21 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: updatedCart,
+      };
+    case "UPDATE_INVENTORY_COUNT":
+      const updatedProducts = state.products.map((product) => {
+        if (product.id === payload.productId) {
+          return {
+            ...product,
+            inventoryCount: payload.newInventoryCount,
+          };
+        }
+        return product;
+      });
+
+      return {
+        ...state,
+        products: updatedProducts,
       };
 
     default:

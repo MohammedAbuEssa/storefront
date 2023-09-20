@@ -14,7 +14,8 @@ const Products = () => {
 
   // Function to add a product to the cart
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product)); // Dispatch the addToCart action with the selected product
+    console.log("Adding to cart:", product);
+    dispatch(addToCart(product));
   };
 
   return (
